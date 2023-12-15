@@ -3,10 +3,21 @@ package com.dlt.practice.coding_challenges;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class WordScore {
-    public static final Map<Character, Integer> letterPoints = Map.ofEntries(
+
+    // Java 8
+    public static final Map<Character, Integer> letterPointsJava8 = Stream.of(new Object[][] {
+            { 'A', 1 }, { 'B', 3 }, { 'C', 3 }, { 'D', 2 }, { 'E', 1 }, { 'F', 4 }, { 'G', 2 }, { 'H', 4 }, { 'I', 1 },
+            { 'J', 8 }, { 'K', 5 }, { 'L', 1 }, { 'M', 3 }, { 'N', 1 }, { 'O', 1 }, { 'P', 3 }, { 'Q', 10 }, { 'R', 1 },
+            { 'S', 1 }, { 'T', 1 }, { 'U', 1 }, { 'W', 4 }, { 'V', 4 }, { 'X', 8 }, { 'Y', 4 }, { 'Z', 10 }
+    }).collect(Collectors.toMap(data -> (Character) data[0], data -> (Integer) data[1]));
+
+
+    // Java 9
+    public static final Map<Character, Integer> letterPointsJava9 = Map.ofEntries(
             Map.entry('A', 1), Map.entry('B', 3), Map.entry('C', 3), Map.entry('D', 2),
             Map.entry('E', 1), Map.entry('F', 4), Map.entry('G', 2), Map.entry('H', 4),
             Map.entry('I', 1), Map.entry('J', 8), Map.entry('K', 5), Map.entry('L', 1),
@@ -21,7 +32,7 @@ public class WordScore {
                 .trim()
                 .chars()
                 .filter(Character::isAlphabetic)
-                .mapToObj(n -> letterPoints.containsKey((char) n) ? letterPoints.get((char) n) : 0);
+                .mapToObj(n -> letterPointsJava9.containsKey((char) n) ? letterPointsJava9.get((char) n) : 0);
     }
 
     public static int wordScoreCalculator1(String word) {
